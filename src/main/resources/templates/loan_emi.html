@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Loan EMI Calculator</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <h1>Loan EMI Calculator</h1>
+
+    <form th:action="@{/calculator/calculateLoanEMI}" method="post" th:object="${params}">
+        <div class="form-group">
+            <label for="principal">Loan Amount:</label>
+            <input type="number" id="principal" th:field="*{principal}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="interest">Interest Rate (% per annum):</label>
+            <input type="number" id="interest" th:field="*{interest}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="tenure">Loan Tenure (months):</label>
+            <input type="number" id="tenure" th:field="*{tenure}" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Calculate EMI</button>
+    </form>
+
+    <div th:if="${emi != null}">
+        <h2>Results</h2>
+        <p>Loan Amount: <span th:text="${params.principal}"></span></p>
+        <p>Interest Rate: <span th:text="${params.interest}"></span>% per annum</p>
+        <p>Loan Tenure: <span th:text="${params.tenure}"></span> months</p>
+        <p>Monthly EMI: <span th:text="${emi}"></span></p>
+    </div>
+
+    <div class="container">
+        <a href="../templates/dashboard.html" class="btn btn-default">Return to Dashboard</a>
+    </div>
+</body>
+</html>

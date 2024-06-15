@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>NAPS Calculator</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <h1>NAPS Calculator</h1>
+
+    <form th:action="@{/calculator/calculateNAPS}" method="post" th:object="${params}">
+        <div class="form-group">
+            <label for="investment">Monthly Investment Amount:</label>
+            <input type="number" id="investment" th:field="*{investment}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="roi">Expected Return Rate (% per annum):</label>
+            <input type="number" id="roi" th:field="*{roi}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="years">Investment Duration (years):</label>
+            <input type="number" id="years" th:field="*{years}" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Calculate NAPS</button>
+    </form>
+
+    <div th:if="${amount != null}">
+        <h2>Results</h2>
+        <p>Monthly Investment Amount: <span th:text="${params.investment}"></span></p>
+        <p>Expected Return Rate: <span th:text="${params.roi}"></span>% per annum</p>
+        <p>Investment Duration: <span th:text="${params.years}"></span> years</p>
+        <p>Future Value of Investment: <span th:text="${amount}"></span></p>
+    </div>
+
+    <div class="container">
+        <a href="../templates/dashboard.html" class="btn btn-default">Return to Dashboard</a>
+    </div>
+</body>
+</html>

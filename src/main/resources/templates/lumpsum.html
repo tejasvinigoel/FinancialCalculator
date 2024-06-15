@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lumpsum Calculator</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <h1>Lumpsum Calculator</h1>
+
+    <form th:action="@{/calculator/calculateLumpsum}" method="post" th:object="${params}">
+        <div class="form-group">
+            <label for="principal">Principal Amount:</label>
+            <input type="number" id="principal" th:field="*{principal}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="roi">Rate of Interest (%):</label>
+            <input type="number" id="roi" th:field="*{roi}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="time">Number of Years:</label>
+            <input type="number" id="time" th:field="*{time}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="frequency">Compounding Frequency per Year:</label>
+            <input type="number" id="frequency" th:field="*{frequency}" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Calculate</button>
+    </form>
+
+    <div th:if="${amount != null}">
+        <h2>Results</h2>
+        <p>You Invested: <span th:text="${params.principal}"></span></p>
+        <p>Interest Earned: <span th:text="${earnings}"></span></p>
+        <p>Future Value of Investment: <span th:text="${amount}"></span></p>
+    </div>
+
+    <div class="container">
+        <a href="dashboard.html" class="btn btn-default">Return to Dashboard</a>
+    </div>
+</body>
+</html>
